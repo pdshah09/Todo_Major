@@ -3,19 +3,108 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Canvas & Containers */
+  --bg-canvas: #55567b;
+  --bg-dashboard: #cccde4;
+  --bg-column: #ffffdf;
+  --bg-card: #ffffff;
+
+  /* Brand Accents */
+  --color-primary: #787bb9;
+  --color-primary-light: #eeeefd;
+  --color-primary-dark: #555669;
+  
+  /* Typography */
+  --text-main: #000000;
+  --text-muted: #6b7280;
+  --text-subtle: #9ca3af;
+
+  /* Priority Badges */
+  --badge-high-bg: #fee2e2;
+  --badge-high-text: #ef4444;
+  
+  --badge-medium-bg: #fef3c7;
+  --badge-medium-text: #f59e0b;
+  
+  --badge-low-bg: #dcfce7;
+  --badge-low-text: #10b981;
+  
+  --badge-unassigned-bg: #f3f4f6;
+  --badge-unassigned-text: #6b7280;
+  
+  /* Borders & Miscellaneous */
+  --border-light: #e5e7eb;
+  --border-dark: #1f2937;
+  --radius-dashboard: 1.25rem; /* 20px */
+  --radius-card: 0.75rem;     /* 12px */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  /* Kanban Board Custom Utilities */
+  --color-canvas: var(--bg-canvas);
+  --color-dashboard: var(--bg-dashboard);
+  --color-column: var(--bg-column);
+  --color-card: var(--bg-card);
+  
+  --color-brand: var(--color-primary);
+  --color-brand-light: var(--color-primary-light);
+  
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  
+  --color-high-bg: var(--badge-high-bg);
+  --color-high-txt: var(--badge-high-text);
+  --color-med-bg: var(--badge-medium-bg);
+  --color-med-txt: var(--badge-medium-text);
+  --color-low-bg: var(--badge-low-bg);
+  --color-low-txt: var(--badge-low-text);
+  
+  --color-border-light: var(--border-light);
+  --radius-dashboard: var(--radius-dashboard);
+  --radius-card: var(--radius-card);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    
+    /* Canvas & Containers */
+    --bg-canvas: #55567b;
+    --bg-dashboard: #121214;
+    --bg-column: #ffffffdf;
+    --bg-card: #252529;
+
+    /* Brand Accents */
+    --color-primary: #aaadf7;
+    --color-primary-light: #eeeefd;
+    --color-primary-dark: #555669;
+
+    /* Typography */
+    --text-main: #000000;
+    --text-muted: #9ca3af;
+    --text-subtle: #6b7280;
+
+    /* Priority Badges */
+    --badge-high-bg: #451a1a;
+    --badge-high-text: #fca5a5;
+    
+    --badge-medium-bg: #452e10;
+    --badge-medium-text: #fcd34d;
+
+    --badge-low-bg: #064e3b;
+    --badge-low-text: #86efac;
+
+    --badge-unassigned-bg: #2d2d30;
+    --badge-unassigned-text: #9ca3af;
+
+    /* Borders */
+    --border-light: #2d2d30;
   }
 }
 
