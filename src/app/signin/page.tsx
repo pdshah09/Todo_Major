@@ -14,6 +14,8 @@ export default function SignInPage() {
         e.preventDefault();
         setError(null);
 
+        router.push("/dashboard");
+
         const formData = new FormData(e.currentTarget);
 
         const res = await signIn.email({
@@ -44,7 +46,7 @@ export default function SignInPage() {
                     <div className="relative px-8 py-8">
                         <div className="text-center mb-8">
                             <h1 className="text-3xl font-bold text-canvas mb-2">Welcome back</h1>
-                            <p className="text-muted">Sign in to continue to your tasks</p>
+                            <p className="text-text-muted">Sign in to continue to your tasks</p>
                         </div>
 
                         {error && (
@@ -101,7 +103,7 @@ export default function SignInPage() {
                         </form>
 
                         <div className="mt-6 text-center">
-                            <p className="text-subtle text-sm">
+                            <p className="text-text-subtle text-sm">
                                 Don&apos;t have an account?{" "}
                                 <button
                                     onClick={() => router.push("/signup")}
@@ -115,7 +117,7 @@ export default function SignInPage() {
                         <div className="mt-4 text-center">
                             <button
                                 onClick={() => router.push("/")}
-                                className="text-subtle hover:text-canvas text-sm hover:underline"
+                                className="text-text-subtle hover:text-canvas text-sm hover:underline"
                             >
                                 ← Back to home
                             </button>

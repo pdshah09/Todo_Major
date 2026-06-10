@@ -25,7 +25,7 @@ export default function Home() {
                         {/* Hero Section */}
                         <div className="text-center mb-12">
                             <div className="mb-6">
-                                <h1 className="text-5xl font-bold text-canvas mb-4">TodoNest</h1>
+                                <h1 className="text-5xl font-bold text-text-main mb-4">TodoNest</h1>
                                 <div className="w-24 h-1 bg-brand mx-auto rounded-full"></div>
                             </div>
                             <p className="text-xl text-canvas mb-2">

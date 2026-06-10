@@ -1,13 +1,15 @@
+/* global.css */
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f6f6;
+  --foreground: #1f2937;
 
   /* Canvas & Containers */
   --bg-canvas: #55567b;
   --bg-dashboard: #cccde4;
-  --bg-column: #ffffdf;
+  --bg-column: #eeeeee;
   --bg-card: #ffffff;
 
   /* Brand Accents */
@@ -16,7 +18,7 @@
   --color-primary-dark: #555669;
   
   /* Typography */
-  --text-main: #000000;
+  --text-main: #1f2937;
   --text-muted: #6b7280;
   --text-subtle: #9ca3af;
 
@@ -72,13 +74,13 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #f6f6f6;
     
     /* Canvas & Containers */
     --bg-canvas: #55567b;
     --bg-dashboard: #121214;
-    --bg-column: #ffffffdf;
-    --bg-card: #252529;
+    --bg-column: #f1f1f0;
+    --bg-card: #ffffff;
 
     /* Brand Accents */
     --color-primary: #aaadf7;
