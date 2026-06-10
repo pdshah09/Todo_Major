@@ -14,7 +14,9 @@ const CFG = [
 export default function KpiGrid({ stats }: { stats: Stats }) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-      {CFG.map(({ key, ...c }) => <KpiCard key={key} {...c} value={stats[key]} />)}
+      {CFG.map(({ key, ...c }) => (
+        <KpiCard key={key} {...c} value={stats[key as keyof Stats] || 0} />
+      ))}
     </div>
   );
 }

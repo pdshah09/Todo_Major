@@ -1,5 +1,14 @@
+// utils.tsx
+
 export type Status = "Open" | "In Progress" | "Closed" | "Over Due";
 export type Priority = "High" | "Medium" | "Low";
+
+export interface Stats {
+  open: number;
+  inProgress: number;
+  closed: number;
+  overdue: number;
+}
 
 export interface Task {
   id: string; title: string; description: string;
@@ -22,3 +31,11 @@ export const INITIAL_TASKS: Task[] = [
   { id: "8", title: "Create Wireframe for Kanban", description: "Kanban design is required for our new project, let's research the best practices.", status: "Closed", priority: "Low", daysLeft: 67, comments: 2, attachments: 11 },
   { id: "9", title: "Navigation Prototype", description: "", status: "Closed", priority: "High", daysLeft: 26, comments: 1, attachments: 16 },
 ];
+
+// Dynamically calculate stats based on the mock tasks above
+export const MOCK_STATS: Stats = {
+  open: INITIAL_TASKS.filter(t => t.status === "Open").length,
+  inProgress: INITIAL_TASKS.filter(t => t.status === "In Progress").length,
+  closed: INITIAL_TASKS.filter(t => t.status === "Closed").length,
+  overdue: INITIAL_TASKS.filter(t => t.status === "Over Due").length,
+};

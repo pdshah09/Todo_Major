@@ -1,3 +1,5 @@
+// ../components/TaskCard.tsx
+
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { MessageSquare, Paperclip, Clock } from "lucide-react";
 import { Status, Priority, Task, INITIAL_TASKS, COLUMNS, BADGE } from "./utils";
