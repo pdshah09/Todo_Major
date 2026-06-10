@@ -39,3 +39,20 @@ export const MOCK_STATS: Stats = {
   closed: INITIAL_TASKS.filter(t => t.status === "Closed").length,
   overdue: INITIAL_TASKS.filter(t => t.status === "Over Due").length,
 };
+
+// Types based on your Prisma Schema
+export type Role = "ADMIN" | "EMPLOYEE";
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  number: string;
+  role: Role;
+}
+
+// Mock Data (Replace with real data passed from Server Component)
+export const INITIAL_MEMBERS: TeamMember[] = [
+  { id: "1", name: "Param Shah", email: "param@todonest.com", number: "+91 9876543210", role: "ADMIN" },
+  { id: "2", name: "Alice Smith", email: "alice@todonest.com", number: "+91 8765432109", role: "EMPLOYEE" },
+];

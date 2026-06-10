@@ -12,7 +12,7 @@ export default async function DashboardPage() {
 
   return (
     <section className="flex h-[calc(100vh-2rem)] flex-col space-y-6">
-      <h1 className="text-xl font-semibold text-text-main">Dashboard - KPIs & Stats</h1>
+      {/* <h1 className="text-xl font-semibold text-text-main">Dashboard</h1> */}
       
       {/* Use the mock stats here */}
       <KpiGrid stats={MOCK_STATS} /> 

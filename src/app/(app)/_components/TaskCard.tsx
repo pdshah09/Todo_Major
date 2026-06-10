@@ -4,6 +4,7 @@ import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-
 import { MessageSquare, Paperclip, Clock } from "lucide-react";
 import { Status, Priority, Task, INITIAL_TASKS, COLUMNS, BADGE } from "./utils";
 import { CSS } from "@dnd-kit/utilities";
+import InitialsBadge from "./InitialsBadge";
 
 
 export default function TaskCard({ task, isOverlay }: { task: Task; isOverlay?: boolean }) {
@@ -26,13 +27,15 @@ export default function TaskCard({ task, isOverlay }: { task: Task; isOverlay?: 
       <h3 className="mb-1 text-sm font-semibold text-text-main">{task.title}</h3>
       {task.description && <p className="mb-4 line-clamp-2 text-xs leading-relaxed text-text-muted">{task.description}</p>}
       <div className="mt-auto flex items-center justify-between pt-2">
-        <div className="flex items-center gap-3 text-xs text-text-subtle">
+
+        {/* <div className="flex items-center gap-3 text-xs text-text-subtle">
           {task.comments > 0 && <span className="flex items-center gap-1"><MessageSquare size={12} /> {task.comments}</span>}
           {task.attachments > 0 && <span className="flex items-center gap-1"><Paperclip size={12} /> {task.attachments}</span>}
-        </div>
-        <div className="flex -space-x-2">
-          <div className="flex size-6 items-center justify-center rounded-full border border-card bg-brand-light text-[10px] font-bold text-brand">A</div>
-          <div className="flex size-6 items-center justify-center rounded-full border border-card bg-column text-[10px] font-bold text-text-muted">B</div>
+        </div> */}
+
+        <div className="ml-auto flex -space-x-2">
+          <InitialsBadge name="Param shah"/>
+          <InitialsBadge name="Alice Smith"/>
         </div>
       </div>
     </div>

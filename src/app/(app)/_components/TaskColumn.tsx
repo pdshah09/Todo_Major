@@ -16,9 +16,11 @@ export default function TaskColumn({ status, tasks }: { status: Status; tasks: T
           {tasks.map(t => <TaskCard key={t.id} task={t} />)}
         </SortableContext>
       </div>
-      <button className="mt-4 flex items-center gap-2 px-2 py-2 text-text-muted transition-colors hover:text-text-main">
+
+      {/* <button className="mt-4 flex items-center gap-2 px-2 py-2 text-text-muted transition-colors hover:text-text-main">
         <Plus size={16} /> New
-      </button>
+      </button> */}
+      
     </div>
   );
 }
