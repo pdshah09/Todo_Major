@@ -13,8 +13,7 @@ export default function SignInPage() {
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError(null);
-
-        router.push("/dashboard");
+        // router.push("/dashboard");
 
         const formData = new FormData(e.currentTarget);
 

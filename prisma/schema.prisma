@@ -26,7 +26,6 @@ model User {
   name      String
   number    String   @unique
   email     String   @unique
-  password  String
   isAdmin   Boolean  @default(false) // Check if admin using boolean
   createdAt DateTime @default(now())
 

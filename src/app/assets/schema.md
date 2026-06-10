@@ -1,3 +1,13 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 enum Status {
   OPEN
   IN_PROGRESS @map("IN PROGRESS")

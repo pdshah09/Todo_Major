@@ -15,11 +15,18 @@ export default function SignUpPage() {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
+        const password = formData.get("password") as string;
+
+        if (password !== (formData.get("confirmPassword") as string)) {
+            return setError("Passwords do not match.");
+        }
 
         const res = await signUp.email({
             name: formData.get("name") as string,
             email: formData.get("email") as string,
-            password: formData.get("password") as string,
+            password,
+            number: formData.get("number") as string,
+            isAdmin: false,
         });
 
         if (res.error) {
@@ -45,7 +52,7 @@ export default function SignUpPage() {
                     <div className="relative px-8 py-8">
                         <div className="text-center mb-8">
                             <h1 className="text-3xl font-bold text-canvas mb-2">Create Account</h1>
-                            <p className="text-muted">Join us and start organizing your tasks</p>
+                            <p className="text-text-subtle">Join us and start organizing your tasks</p>
                         </div>
 
                         {error && (
