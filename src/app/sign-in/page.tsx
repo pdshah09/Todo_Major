@@ -50,7 +50,7 @@ export default function SignInPage() {
 
                         {error && (
                             <div className="mb-6 p-4 bg-brand border border-primary rounded-lg">
-                                <p className="text-red-600 text-sm">{error}</p>
+                                <p className="text-high-txt text-sm">{error}</p>
                             </div>
                         )}
 
@@ -105,7 +105,7 @@ export default function SignInPage() {
                             <p className="text-text-subtle text-sm">
                                 Don&apos;t have an account?{" "}
                                 <button
-                                    onClick={() => router.push("/signup")}
+                                    onClick={() => router.push("/sign-up")}
                                     className="text-canvas hover:text-canvas font-medium hover:underline"
                                 >
                                     Sign up here

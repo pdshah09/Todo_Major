@@ -9,7 +9,7 @@ export const getSession = async () => auth.api.getSession({ headers: await heade
 
 export async function requireUser() {
   const s = await getSession();
-  if (!s?.user) redirect("/signin");
+  if (!s?.user) redirect("/sign-in");
   return s.user;
 }
 export async function requireAdmin() {

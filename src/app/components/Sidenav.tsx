@@ -59,7 +59,7 @@ export default function Sidenav({ onNavigate, expanded }: { onNavigate?: () => v
       <button 
         onClick={handleSignOut}
         title="Sign Out"
-        className="mt-auto bg-brand-light flex justify-items-center gap-3 rounded-card px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-column hover:text-brand"
+        className="mt-auto bg-brand-light flex justify-items-center gap-3 rounded-card px-3 py-2.5 text-sm font-medium text-high-txt transition hover:bg-column hover:text-brand"
       >
         <LogOut size={18} className="shrink-0" />
         <span className={`overflow-hidden whitespace-nowrap transition-all

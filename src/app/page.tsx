@@ -70,13 +70,13 @@ export default function Home() {
                         {/* CTA Buttons */}
                         <div className="space-y-4">
                             <button
-                                onClick={() => router.push("/signup")}
+                                onClick={() => router.push("/sign-up")}
                                 className="w-full bg-brand hover:bg-slate-900 text-white font-medium py-4 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-lg"
                             >
                                 Get Started
                             </button>
                             <button
-                                onClick={() => router.push("/signin")}
+                                onClick={() => router.push("/sign-in")}
                                 className="w-full border-2 border-slate-600 text-canvas hover:bg-dashboard font-medium py-4 px-6 rounded-lg transition-colors duration-200 text-lg"
                             >
                                 Already have an account? Sign In
