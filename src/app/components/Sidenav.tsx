@@ -5,6 +5,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import iconAsset from '../assets/icon.png';
+import { signOut } from "@/lib/auth-client";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, KanbanSquare, PanelLeftClose, PanelLeftOpen, Users, LogOut } from "lucide-react";
 
@@ -18,9 +19,14 @@ export default function Sidenav({ onNavigate, expanded }: { onNavigate?: () => v
     
     const path = usePathname();
 
-    const handleSignOut = () => {
-      console.log("Signing out...");
-    };
+    const handleSignOut = async () => {
+    await signOut({ 
+      fetchOptions: { 
+        onSuccess: () => {window.location.href = "/signin"} 
+      } 
+    });
+
+};
 
   return (
     

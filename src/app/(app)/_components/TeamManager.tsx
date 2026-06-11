@@ -1,22 +1,23 @@
-// _components/TeamManager.tsx
-
+// app/(app)/team/_components/TeamManager.tsx
 "use client";
 
-import React, { useState } from "react";
-import { Plus, Edit2, Trash2, Mail, Phone, Shield, User as UserIcon, X } from "lucide-react";
-import { Role, TeamMember, INITIAL_MEMBERS } from "./utils";
+import React, { useState, useTransition } from "react";
+import { Plus, Edit2, Trash2, Mail, Phone, X } from "lucide-react";
+import { addEmployee, updateEmployee, deleteEmployee } from "../team/actions";
 import Modal from "./Modal";
 import EmployeeForm from "./forms/EmployeeForm";
 
-export default function TeamManager() {
-  const [members, setMembers] = useState<TeamMember[]>(INITIAL_MEMBERS);
+// Replace your imports with your actual types
+type TeamMember = { id: string; name: string; email: string; number: string; role: string };
+
+export default function TeamManager({ initialMembers }: { initialMembers: TeamMember[] }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
+  const [isPending, startTransition] = useTransition();
 
-  // Maximum 5 employees + 1 Admin = 6 Total allowed in UI conceptually
-  // Adjust logic based on if your '5 limit' includes the admin or not.
-  const employeeCount = members.filter(m => m.role === "EMPLOYEE").length;
-  const canAddMore = employeeCount < 5;
+  const employeeCount = initialMembers.filter(m => m.role === "EMPLOYEE").length;
+  // const canAddMore = employeeCount < 5;
+  const canAddMore = true;
 
   const handleOpenModal = (member?: TeamMember) => {
     setEditingMember(member || null);
@@ -28,24 +29,42 @@ export default function TeamManager() {
     setEditingMember(null);
   };
 
+  // Wire up the Server Actions
+  const handleActionSubmit = async (formData: FormData) => {
+    startTransition(async () => {
+      try {
+        if (editingMember) {
+          await updateEmployee(editingMember.id, formData);
+        } else {
+          await addEmployee(formData);
+        }
+        closeModal();
+      } catch (error: any) {
+        alert(error.message);
+      }
+    });
+  };
+
   const handleDelete = (id: string) => {
-    setMembers(members.filter((m) => m.id !== id));
+    if (confirm("Are you sure you want to remove this employee?")) {
+      startTransition(() => {
+        deleteEmployee(id);
+      });
+    }
   };
 
   return (
-    <div className="flex flex-col gap-6 h-full">
+    <div className="flex flex-col gap-6 h-full opacity-100 transition-opacity" style={{ opacity: isPending ? 0.6 : 1 }}>
       {/* Header Actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card p-4 rounded-[var(--radius-card)] shadow-md">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card p-4 rounded-[var(--radius-card)] shadow-lg">
         <div>
           <h2 className="text-lg font-semibold text-text-main">Team Members</h2>
-          <p className="text-sm text-text-muted">
-            {employeeCount} / 5 Employees configured
-          </p>
+          <p className="text-sm text-text-muted">{employeeCount} Employees configured</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          disabled={!canAddMore}
-          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-canvas text-white rounded-md hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={!canAddMore || isPending}
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-canvas text-white rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
         >
           <Plus size={16} /> Add Employee
         </button>
@@ -53,18 +72,13 @@ export default function TeamManager() {
 
       {/* Team Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 overflow-y-auto pb-4">
-        {members.map((member) => (
-          <div key={member.id} className="bg-card p-5 rounded-[var(--radius-card)] shadow-sm flex flex-col gap-4 relative group">
+        {initialMembers.map((member) => (
+          <div key={member.id} className="bg-card p-5 border border-border-light rounded-[var(--radius-card)] shadow-sm flex flex-col gap-4 relative group">
             
-            {/* Action Buttons (Hidden for Admin) */}
             {member.role === "EMPLOYEE" && (
               <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={() => handleOpenModal(member)} className="text-text-subtle hover:text-brand transition-colors p-1" aria-label="Edit">
-                  <Edit2 size={14} />
-                </button>
-                <button onClick={() => handleDelete(member.id)} className="text-text-subtle hover:text-high-txt transition-colors p-1" aria-label="Delete">
-                  <Trash2 size={14} />
-                </button>
+                <button onClick={() => handleOpenModal(member)} className="text-text-subtle hover:text-brand p-1"><Edit2 size={14} /></button>
+                <button onClick={() => handleDelete(member.id)} className="text-text-subtle hover:text-red-500 p-1"><Trash2 size={14} /></button>
               </div>
             )}
 
@@ -76,7 +90,7 @@ export default function TeamManager() {
               <div className="flex flex-col">
                 <h3 className="text-sm font-semibold text-text-main leading-tight">{member.name}</h3>
                 <span className={`text-[10px] font-semibold mt-1 px-2 py-0.5 rounded w-max ${
-                  member.role === "ADMIN" ? "bg-med-bg text-med-txt" : "bg-low-bg text-low-txt"
+                  member.role === "ADMIN" ? "bg-amber-100 text-amber-600" : "bg-emerald-100 text-emerald-600"
                 }`}>
                   {member.role === "ADMIN" ? "Admin" : "Employee"}
                 </span>
@@ -85,82 +99,17 @@ export default function TeamManager() {
 
             {/* Contact Details */}
             <div className="flex flex-col gap-2 pt-2 border-t border-border-light text-xs text-text-muted">
-              <div className="flex items-center gap-2">
-                <Mail size={12} className="text-text-subtle" />
-                <span className="truncate">{member.email}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone size={12} className="text-text-subtle" />
-                <span>{member.number}</span>
-              </div>
+              <div className="flex items-center gap-2"><Mail size={12} className="text-text-subtle" /><span className="truncate">{member.email}</span></div>
+              <div className="flex items-center gap-2"><Phone size={12} className="text-text-subtle" /><span>{member.number}</span></div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* CRUD Modal
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm p-4">
-          <div className="bg-card w-full max-w-md rounded-[var(--radius-dashboard)] shadow-xl overflow-hidden">
-            <div className="flex items-center justify-between p-4 border-b border-border-light bg-column">
-              <h3 className="font-semibold text-text-main">
-                {editingMember ? "Edit Employee" : "Add New Employee"}
-              </h3>
-              <button onClick={closeModal} className="text-text-muted hover:text-text-main">
-                <X size={18} />
-              </button>
-            </div>
-            
-            <form className="p-5 flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); closeModal(); }}>
-              <div>
-                <label className="block text-xs font-medium text-text-muted mb-1">Full Name</label>
-                <input required defaultValue={editingMember?.name} type="text" placeholder="John Doe" className="w-full px-3 py-2 text-sm bg-card border border-border-light rounded-md focus:outline-none focus:border-brand text-text-main" />
-              </div>
-              
-              <div>
-                <label className="block text-xs font-medium text-text-muted mb-1">Email Address</label>
-                <input required defaultValue={editingMember?.email} type="email" placeholder="john@company.com" className="w-full px-3 py-2 text-sm bg-card border border-border-light rounded-md focus:outline-none focus:border-brand text-text-main" />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-text-muted mb-1">Phone Number</label>
-                <input required defaultValue={editingMember?.number} type="tel" placeholder="+1 234 567 8900" className="w-full px-3 py-2 text-sm bg-card border border-border-light rounded-md focus:outline-none focus:border-brand text-text-main" />
-              </div>
-
-              
-              {!editingMember && (
-                <div>
-                  <label className="block text-xs font-medium text-text-muted mb-1">Temporary Password</label>
-                  <input required type="password" placeholder="••••••••" className="w-full px-3 py-2 text-sm bg-card border border-border-light rounded-md focus:outline-none focus:border-brand text-text-main" />
-                </div>
-              )}
-
-              <div className="flex justify-end gap-3 mt-2">
-                <button type="button" onClick={closeModal} className="px-4 py-2 text-sm font-medium text-text-muted hover:text-text-main transition-colors">
-                  Cancel
-                </button>
-                <button type="submit" className="px-4 py-2 text-sm font-medium bg-canvas text-white rounded-md hover:opacity-90 transition-opacity">
-                  {editingMember ? "Save Changes" : "Create Employee"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-      */}
-
-        {/* Reusable CRUD Modal */}
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={closeModal} 
-        title={editingMember ? "Edit Employee" : "Add New Employee"}
-      >
-        <EmployeeForm
-          initialData={editingMember} 
-          onClose={closeModal} 
-        />
+      {/* Reusable CRUD Modal */}
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={editingMember ? "Edit Employee" : "Add New Employee"}>
+        <EmployeeForm initialData={editingMember} action={handleActionSubmit} onClose={closeModal} />
       </Modal>
-
     </div>
   );
 }

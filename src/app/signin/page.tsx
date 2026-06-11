@@ -20,6 +20,7 @@ export default function SignInPage() {
         const res = await signIn.email({
             email: formData.get("email") as string,
             password: formData.get("password") as string,
+            rememberMe: true, // cookie
         });
 
         if (res.error) {
@@ -105,7 +106,7 @@ export default function SignInPage() {
                             <p className="text-text-subtle text-sm">
                                 Don&apos;t have an account?{" "}
                                 <button
-                                    onClick={() => router.push("/sign-up")}
+                                    onClick={() => router.push("/signup")}
                                     className="text-canvas hover:text-canvas font-medium hover:underline"
                                 >
                                     Sign up here

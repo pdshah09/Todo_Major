@@ -14,7 +14,7 @@ export default function Header({ title = "TODONEST" }: { title?: string }) {
       <div className="ml-auto flex items-center gap-4"> 
         <button className="relative text-text-muted hover:text-brand" aria-label="Notifications">
           <Bell size={20} />
-          <span className="absolute -right-1 -top-1 grid size-4 place-items-center rounded-full bg-high-txt text-[10px] text-text-main">2</span>
+          <span className="absolute -right-1 -top-1 grid size-4 place-items-center rounded-full bg-brand text-[10px] text-foreground">2</span>
         </button>
         <InitialsBadge name="Param Shah" />
       </div>

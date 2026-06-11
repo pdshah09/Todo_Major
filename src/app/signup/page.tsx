@@ -177,7 +177,7 @@ export default function SignUpPage() {
                             <p className="text-gray-600 text-sm">
                                 Already have an account?{" "}
                                 <button
-                                    onClick={() => router.push("/sign-in")}
+                                    onClick={() => router.push("/signin")}
                                     className="text-canvas hover:text-canvas font-medium hover:underline"
                                 >
                                     Sign in here
