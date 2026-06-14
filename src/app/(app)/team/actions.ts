@@ -52,8 +52,13 @@ export async function updateEmployee(employeeId: string, formData: FormData) {
 }
 
 // DELETE: remove employee link only (keep the user)
-export async function deleteEmployee(employeeId: string) {
+export async function deleteEmployee(userId: string) {
   await requireAdmin();
-  await prisma.employee.delete({ where: { id: employeeId } });
+  
+  // Use 'userId' instead of 'id' since that is what the UI sends
+  await prisma.employee.delete({ 
+    where: { userId } 
+  });
+  
   revalidatePath("/team");
 }

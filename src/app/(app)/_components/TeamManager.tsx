@@ -73,7 +73,7 @@ export default function TeamManager({ initialMembers }: { initialMembers: TeamMe
       {/* Team Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 overflow-y-auto pb-4">
         {initialMembers.map((member) => (
-          <div key={member.id} className="bg-card p-5 border border-border-light rounded-[var(--radius-card)] shadow-sm flex flex-col gap-4 relative group">
+          <div key={member.id} className="bg-card p-5 rounded-[var(--radius-card)] shadow-md flex flex-col gap-4 relative group">
             
             {member.role === "EMPLOYEE" && (
               <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

@@ -1,9 +1,15 @@
 // Header.tsx
+"use client";
 
+import { useSession } from "@/lib/auth-client";
 import { Bell } from "lucide-react";
 import InitialsBadge from "../(app)/_components/InitialsBadge";
 
 export default function Header({ title = "TODONEST" }: { title?: string }) {
+
+  const { data: session } = useSession();
+  const displayName =  session?.user?.name || "";
+
   return (
     /* Added `hidden md:flex` to turn visibility off on mobile */
     <header className="hidden md:flex items-center border-b border-border-light bg-foreground px-4 py-3 sm:px-6">
@@ -16,7 +22,7 @@ export default function Header({ title = "TODONEST" }: { title?: string }) {
           <Bell size={20} />
           <span className="absolute -right-1 -top-1 grid size-4 place-items-center rounded-full bg-brand text-[10px] text-foreground">2</span>
         </button>
-        <InitialsBadge name="Param Shah" />
+        <InitialsBadge name={displayName} />
       </div>
     </header>
   );
